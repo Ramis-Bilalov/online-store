@@ -42,8 +42,8 @@ public class App {
 
         // 5. Поиск товара, который есть в корзине.
 
-        System.out.println("\n5. Поиск товара " + product1.getProductName() + ", который есть в корзине: " +
-                ProductBasket.isProductOnBasket(product1.getProductName()));
+        System.out.println("\n5. Поиск товара " + product2.getProductName() + ", который есть в корзине: " +
+                ProductBasket.isProductOnBasket(product2.getProductName()));
 
         // 6. Поиск товара, которого нет в корзине.
         System.out.println("\nПоиск товара " + product6.getProductName() + ", которого нет в корзине: " +
@@ -66,7 +66,7 @@ public class App {
 
         // 10. Поиск товара по имени в пустой корзине.
 
-        System.out.println("\n10. Поиск товара по имени в пустой корзине: " + ProductBasket.isProductOnBasket(product1.getProductName()));
+        System.out.println("\n10. Поиск товара по имени в пустой корзине: " + ProductBasket.isProductOnBasket(product2.getProductName()));
 
     }
 }

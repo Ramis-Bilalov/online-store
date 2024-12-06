@@ -6,8 +6,10 @@ public class Product {
     private int productPrice;
 
     public Product(String productName, int productPrice) {
-        this.productName = productName;
-        this.productPrice = productPrice;
+        if(productPrice >=0 && !productName.isBlank()) {
+            this.productName = productName;
+            this.productPrice = productPrice;
+        }
     }
 
     public String getProductName() {
@@ -15,7 +17,9 @@ public class Product {
     }
 
     public void setProductName(String productName) {
-        this.productName = productName;
+        if (!productName.isBlank()) {
+            this.productName = productName;
+        }
     }
 
     public int getProductPrice() {
@@ -23,6 +27,8 @@ public class Product {
     }
 
     public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
+        if(productPrice >= 0) {
+            this.productPrice = productPrice;
+        } else throw new RuntimeException("Отрицательная цена");
     }
 }

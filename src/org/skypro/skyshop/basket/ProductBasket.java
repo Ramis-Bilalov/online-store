@@ -8,7 +8,7 @@ public class ProductBasket {
     public static void addProduct(Product product) {
         boolean status = false;
         for (int i = 0; i < products.length; i++) {
-            if(products[i] != null) {
+            if(products[i] == null) {
                 status = false;
                 products[i] = product;
                 break;
@@ -30,14 +30,17 @@ public class ProductBasket {
     }
 
     public static void printBasketContent() {
-        if(products.length != 0) {
-            for (int i = 0; i < products.length; i++) {
-                if(products[i] != null) {
-                    System.out.println("Имя продукта: " + products[i].getProductName() + " стоимость: " + products[i].getProductPrice());
-                }
+        int count = 0;                                                  // ввел эту переменную для подсчета товаров в корзине, если 0 значит корзина пустая
+        for (int i = 0; i < products.length; i++) {
+            if (products[i] != null) {
+                count++;
+                System.out.println("Имя продукта: " + products[i].getProductName() + " стоимость: " + products[i].getProductPrice());
             }
-            System.out.println("Итого: " + getBasketCost());
-        } else System.out.println("В корзине пусто");
+        }
+        if(count==0) {
+            System.out.println("В корзине пусто");
+        }
+        System.out.println("Итого: " + getBasketCost());
     }
 
     public static boolean isProductOnBasket(String productName) {
