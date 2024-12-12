@@ -31,16 +31,21 @@ public class ProductBasket {
 
     public static void printBasketContent() {
         int count = 0;                                                  // ввел эту переменную для подсчета товаров в корзине, если 0 значит корзина пустая
+        int specialProductsCount = 0;
         for (int i = 0; i < products.length; i++) {
             if (products[i] != null) {
+                if(products[i].isSpecial()) {
+                    specialProductsCount++;
+                }
                 count++;
-                System.out.println("Имя продукта: " + products[i].getProductName() + " стоимость: " + products[i].getProductPrice());
+                System.out.println(products[i]);
             }
         }
         if(count==0) {
             System.out.println("В корзине пусто");
         }
-        System.out.println("Итого: " + getBasketCost());
+        System.out.println("------------------------------\nИтого: " + getBasketCost());
+        System.out.println("Специальных товаров: " + specialProductsCount);
     }
 
     public static boolean isProductOnBasket(String productName) {
