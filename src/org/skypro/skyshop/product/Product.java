@@ -1,14 +1,12 @@
 package org.skypro.skyshop.product;
 
-public class Product {
+public abstract class Product {
 
-    private String productName;
-    private int productPrice;
+    protected String productName;
 
-    public Product(String productName, int productPrice) {
-        if(productPrice >=0 && !productName.isBlank()) {
+    public Product(String productName) {
+        if(!productName.isBlank()) {
             this.productName = productName;
-            this.productPrice = productPrice;
         }
     }
 
@@ -22,13 +20,8 @@ public class Product {
         }
     }
 
-    public int getProductPrice() {
-        return productPrice;
-    }
+    public abstract int getProductPrice();
 
-    public void setProductPrice(int productPrice) {
-        if(productPrice >= 0) {
-            this.productPrice = productPrice;
-        } else throw new RuntimeException("Отрицательная цена");
-    }
+    public abstract boolean isSpecial();
+
 }
