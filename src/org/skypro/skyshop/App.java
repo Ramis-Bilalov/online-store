@@ -1,9 +1,13 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.Article;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.SearchEngine;
+
+import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
@@ -69,6 +73,26 @@ public class App {
         // 10. Поиск товара по имени в пустой корзине.
 
         System.out.println("\n10. Поиск товара по имени в пустой корзине: " + ProductBasket.isProductOnBasket(product2.getProductName()));
+
+
+        System.out.println("\nООП. Полиморфизм. Интерфейсы");
+
+        SearchEngine searchEngine = new SearchEngine(5);
+
+        Article article1 = new Article("Корейские автомобили", "KIA, HYUNDAI, GENESIS, SSANGYONG");
+        Article article2 = new Article("Немецкие автомобили", "VW, AUDI, SKODA, BMW, MERCEDES");
+        Article article3 = new Article("Японские автомобили", "Toyota, Mazda, Lexus");
+
+        searchEngine.addNewSearchable(product1);
+        searchEngine.addNewSearchable(product2);
+
+
+
+        searchEngine.addNewSearchable(article1);
+        searchEngine.addNewSearchable(article2);
+        searchEngine.addNewSearchable(article3);
+
+        System.out.println(Arrays.toString(searchEngine.getSearchArray("KIA")));
 
     }
 }
