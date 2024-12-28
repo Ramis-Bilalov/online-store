@@ -6,10 +6,10 @@ public class SimpleProduct extends Product{
 
     public SimpleProduct(String productName, int productPrice) {
         super(productName);
-        if(productPrice >= 0) {
+        if(productPrice >= 1) {
             this.productPrice = productPrice;
         } else {
-            throw new RuntimeException("Цена не может быть отрицательной!");
+            throw new IllegalArgumentException("Цена не может быть отрицательной!");
         }
     }
 
