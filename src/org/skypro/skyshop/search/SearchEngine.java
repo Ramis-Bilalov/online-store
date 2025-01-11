@@ -1,55 +1,42 @@
 package org.skypro.skyshop.search;
 
 import org.skypro.skyshop.exceptions.BestResultNotFound;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SearchEngine {
 
-    Searchable[] searchArray;
-    int arraySize;
+    static List<Searchable> searchArray = new LinkedList<>();
 
 
-    public SearchEngine(int arraySize) {
-        this.arraySize = arraySize;
-        searchArray = new Searchable[arraySize];
+    public SearchEngine() {
+        searchArray = new LinkedList<>();
     }
 
     public Searchable getSearchTerm(String searchItem) throws BestResultNotFound {
-        Searchable searchable = null;
-        int count = 0;
-        for (int i = 0; i < searchArray.length; i++) {
-            if(searchArray[i].toString().contains(searchItem)) {
-                count++;
-                System.out.println(searchArray[i].toString());
-                searchable = searchArray[i];
+        for (Searchable searchable : searchArray) {
+            if (searchable.getStringRepresentation().contains(searchItem)) {
+                return searchable;
             }
         }
-        if(searchable != null) {
-            return searchable;
-        } else throw new BestResultNotFound("Для поисковой строки " + searchItem + " не нашлось подходящей статьи");
+        return null;
     }
 
-    public Searchable[] getSearchArray(String searchTerm) {
-        Searchable[] newArray = new Searchable[5];
-        for (int i = 0; i < arraySize; i++) {
-            if (searchArray[i].getStringRepresentation().contains(searchTerm)) {
-                int count = 0;
-                newArray[count] = searchArray[i];
-                count++;
-                if(i == arraySize) {
-                    break;
+        public List<Searchable> getSearchArray (String searchTerm){
+            List<Searchable> newArray = new LinkedList<>();
+
+            for (Searchable searchable : searchArray) {
+                if (searchable.searchTerm().contains(searchTerm)) {
+                    newArray.add(searchable);
                 }
             }
+            return newArray;
         }
-        return newArray;
-    }
 
-    public void addNewSearchable(Searchable object) {
-        for (int i = 0; i < arraySize; i++) {
-            if(searchArray[i]==null) {
-                searchArray[i] = object;
-                break;
+        public void addNewSearchable (Searchable searchable){
+            if (searchable != null) {
+                searchArray.add(searchable);
             }
         }
     }
-}
 

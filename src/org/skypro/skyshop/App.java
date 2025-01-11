@@ -4,8 +4,7 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.SearchEngine;
-
-import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -26,13 +25,6 @@ public class App {
         ProductBasket.addProduct(product3);
         ProductBasket.addProduct(product4);
         ProductBasket.addProduct(product5);
-
-        // 2. Добавление продукта в заполненную корзину, в которой нет свободного места.
-        System.out.println("2. Добавление продукта в заполненную корзину, в которой нет свободного места.");
-
-        ProductBasket.addProduct(product6);
-
-        System.out.println();
 
         // 3. Печать содержимого корзины с несколькими товарами.
 
@@ -75,7 +67,7 @@ public class App {
 
         System.out.println("\nООП. Полиморфизм. Интерфейсы");
 
-        SearchEngine searchEngine = new SearchEngine(5);
+        SearchEngine searchEngine = new SearchEngine();
 
         Article article1 = new Article("Корейские автомобили", "KIA, HYUNDAI, GENESIS, SSANGYONG");
         Article article2 = new Article("Немецкие автомобили", "VW, AUDI, SKODA, BMW, MERCEDES");
@@ -90,8 +82,7 @@ public class App {
         searchEngine.addNewSearchable(article2);
         searchEngine.addNewSearchable(article3);
 
-        System.out.println(Arrays.toString(searchEngine.getSearchArray("KIA")));
-
+        System.out.println(searchEngine.getSearchArray("VW"));
 
 
         try {
@@ -104,7 +95,7 @@ public class App {
 
 
         try {
-            System.out.println("searchEngine.getSearchTerm(\"VW\") = " + searchEngine.getSearchTerm("V1"));
+            System.out.println("searchEngine.getSearchTerm(\"V1\") = " + searchEngine.getSearchTerm("V1"));
         } catch (BestResultNotFound e) {
             e.printStackTrace();
         }
@@ -117,8 +108,39 @@ public class App {
             e.printStackTrace();
         }
 
-        System.out.println("Проверка завершена 3");
+        System.out.println("Проверка завершена 3\n");
+
+        // Удаление продукта по имени в корзине
+
+        System.out.println("Удаление продукта по имени в корзине\n");
+
+        System.out.println("Вывод списка удаленных продуктов");
+        List<Product> productList = ProductBasket.removeProductsByName("Апельсин");
+        System.out.println(productList);
 
 
+        System.out.println("\nУдаление несуществующего продукта по имени в корзине");
+        ProductBasket.removeProductsByName("Парта");
+
+        System.out.println("\nВывести содержимое корзины");
+        ProductBasket.printBasketContent();
+
+        // Проверка методов класса SearchEngine
+
+        System.out.println(searchEngine.getSearchArray("VW"));
+
+        try {
+            System.out.println("searchEngine.getSearchTerm(\"V1\") = " + searchEngine.getSearchTerm("V1"));
+        } catch (BestResultNotFound e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Проверка завершена 2");
+
+        try {
+            System.out.println("searchEngine.getSearchTerm(\"VW\") = " + searchEngine.getSearchTerm("VW"));
+        } catch (BestResultNotFound e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,12 +1,12 @@
 package org.skypro.skyshop.product;
 
-public class SimpleProduct extends Product{
+public class SimpleProduct extends Product {
 
     private int productPrice;
 
     public SimpleProduct(String productName, int productPrice) {
         super(productName);
-        if(productPrice >= 1) {
+        if (productPrice >= 1) {
             this.productPrice = productPrice;
         } else {
             throw new IllegalArgumentException("Цена не может быть отрицательной!");
