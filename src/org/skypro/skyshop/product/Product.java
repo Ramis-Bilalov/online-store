@@ -8,7 +8,9 @@ public abstract class Product implements Searchable {
 
 
     public Product(String productName) {
-        this.productName = productName;
+        if(productName != null && !productName.isBlank()) {
+            this.productName = productName;
+        } else throw new IllegalArgumentException("Неправильное имя");
     }
 
     @Override

@@ -1,10 +1,8 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.Article;
-import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.FixPriceProduct;
-import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.exceptions.BestResultNotFound;
+import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.SearchEngine;
 
 import java.util.Arrays;
@@ -93,6 +91,34 @@ public class App {
         searchEngine.addNewSearchable(article3);
 
         System.out.println(Arrays.toString(searchEngine.getSearchArray("KIA")));
+
+
+
+        try {
+            DiscountedProduct discountedProduct = new DiscountedProduct(" ", 15000, 20);
+            SimpleProduct simpleProduct = new SimpleProduct(" ", 10000);
+        } catch (IllegalArgumentException i) {
+            i.printStackTrace();
+        }
+        System.out.println("Проверка завершена 1");
+
+
+        try {
+            System.out.println("searchEngine.getSearchTerm(\"VW\") = " + searchEngine.getSearchTerm("V1"));
+        } catch (BestResultNotFound e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Проверка завершена 2");
+
+        try {
+            System.out.println("searchEngine.getSearchTerm(\"VW\") = " + searchEngine.getSearchTerm("VW"));
+        } catch (BestResultNotFound e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Проверка завершена 3");
+
 
     }
 }
