@@ -5,25 +5,23 @@ import org.skypro.skyshop.exceptions.BestResultNotFound;
 import java.util.*;
 
 public class SearchEngine {
-    static Map<String, Searchable> searchArray = new TreeMap<>();
+    static Set<Searchable> searchArray = new TreeSet<>(new SearchableComparator());
 
 
     public Searchable getSearchTerm(String searchItem) throws BestResultNotFound {
-        for (Map.Entry<String, Searchable> entry : searchArray.entrySet()) {
-            Searchable value = entry.getValue();
-            if (value.getStringRepresentation().contains(searchItem)) {
-                return value;
+        for (Searchable searchable : searchArray) {
+            if (searchable.getStringRepresentation().contains(searchItem)) {
+                return searchable;
             }
         }
         return null;
     }
 
-    public List<Searchable> getSearchArray(String searchTerm) {
-        List<Searchable> newArray = new LinkedList<>();
-        for (Map.Entry<String, Searchable> entry : searchArray.entrySet()) {
-            Searchable value = entry.getValue();
-            if (value.searchTerm().contains(searchTerm)) {
-                newArray.add(value);
+    public Set<Searchable> getSearchArray(String searchTerm) {
+        Set<Searchable> newArray = new HashSet<>();
+        for (Searchable searchable : searchArray) {
+            if (searchable.searchTerm().contains(searchTerm)) {
+                newArray.add(searchable);
             }
         }
         return newArray;
@@ -31,7 +29,7 @@ public class SearchEngine {
 
     public void addNewSearchable(Searchable searchable) {
         if (searchable != null) {
-            searchArray.put(searchable.searchTerm(), searchable);
+            searchArray.add(searchable);
         }
     }
 }

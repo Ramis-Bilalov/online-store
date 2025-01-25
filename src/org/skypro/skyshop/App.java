@@ -4,6 +4,7 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.SearchEngine;
+
 import java.util.List;
 
 public class App {
@@ -77,7 +78,6 @@ public class App {
         searchEngine.addNewSearchable(product2);
 
 
-
         searchEngine.addNewSearchable(article1);
         searchEngine.addNewSearchable(article2);
         searchEngine.addNewSearchable(article3);
@@ -142,5 +142,23 @@ public class App {
         } catch (BestResultNotFound e) {
             e.printStackTrace();
         }
+
+
+        System.out.println("\n\n\n\n\n");
+
+        Article articleTest1 = new Article("BMW", "For the joy of motoring");
+        Article articleTest2 = new Article("Tesla", "Move fast and break things.");
+        Article articleTest3 = new Article("Toyota", "Always a better way");
+        Article articleTest4 = new Article("Audi", "Audi and BMW are strong competitors");
+
+        SearchEngine searchEngine1 = new SearchEngine();
+
+        searchEngine1.addNewSearchable(articleTest1);
+        searchEngine1.addNewSearchable(articleTest2);
+        searchEngine1.addNewSearchable(articleTest3);
+        searchEngine1.addNewSearchable(articleTest4);
+
+        System.out.println("searchEngine1.getSearchArray() = \n" + searchEngine1.getSearchArray("BMW"));
+
     }
 }
