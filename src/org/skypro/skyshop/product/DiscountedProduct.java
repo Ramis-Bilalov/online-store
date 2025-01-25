@@ -15,6 +15,8 @@ public class DiscountedProduct extends Product {
         } else throw new IllegalArgumentException("Неправильно указан процент");
     }
 
+
+
     @Override
     public int getProductPrice() {
         return basePrice * (1 + discountPercent / 100);
