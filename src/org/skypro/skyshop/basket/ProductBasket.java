@@ -15,62 +15,37 @@ public class ProductBasket {
     }
 
     public static List<Product> removeProductsByName(String name) {
-        List<Product> deleteList = new LinkedList<>();
-        List<Product> productsList = productsBasket.getOrDefault(name, new ArrayList<>());
-        for (Product product : productsList) {
-            if (product.getProductName().contains(name)) {
-                deleteList.add(product);
-                productsBasket.remove(name);
-            }
+        List<Product> productsList = productsBasket.values().stream().flatMap(Collection::stream)
+                .filter(product -> product.getProductName().contains(name))
+                .toList();
+
+        if (isProductOnBasket(name)) {
+            productsBasket.remove(name);
         }
-        return deleteList;
+
+        return productsList;
     }
 
     public static int getBasketCost() {
-        int sum = 0;
-        for (Map.Entry<String, List<Product>> entry : productsBasket.entrySet()) {
-            List<Product> valueList = entry.getValue();
-            for (Product product : valueList) {
-                if (product != null) {
-                    sum = sum + product.getProductPrice();
-                }
-            }
-        }
-        return sum;
+        return productsBasket.values().stream().flatMap(Collection::stream)
+                .mapToInt(Product::getProductPrice)
+                .sum();
     }
 
     public static void printBasketContent() {
-        int count = 0;
-        int specialProductsCount = 0;
-        List<Product> newList = new LinkedList<>();
-        for (Map.Entry<String, List<Product>> entry : productsBasket.entrySet()) {
-            List<Product> value = entry.getValue();
-            for (Product product : value) {
-                if (product != null) {
-                    newList.add(product);
-                    if (product.isSpecial()) {
-                        specialProductsCount++;
-                    }
-                    count++;
-                }
-            }
-        }
-        System.out.println(newList);
-        if (count == 0) {
-            System.out.println("В корзине пусто");
-        }
-        System.out.println("------------------------------\nИтого: " + getBasketCost());
-        System.out.println("Специальных товаров: " + specialProductsCount);
+        productsBasket.forEach((s, products) -> System.out.println(s + products));
+        System.out.println("Итого: " + getBasketCost());
+        System.out.println("Специальных товаров: " + getSpecialCount());
+    }
+
+    private static long getSpecialCount() {
+        return productsBasket.values().stream().flatMap(Collection::stream)
+                .filter(Product::isSpecial).count();
     }
 
     public static boolean isProductOnBasket(String productName) {
-        List<Product> productsList = productsBasket.getOrDefault(productName, new ArrayList<>());
-        for (Product product : productsList) {
-            if (product.getProductName().contains(productName)) {
-                return true;
-            }
-        }
-        return false;
+        return productsBasket.values().stream().flatMap(Collection::stream)
+                .anyMatch(product -> product.getProductName().contains(productName));
     }
 
     public static void cleanBasket() {
