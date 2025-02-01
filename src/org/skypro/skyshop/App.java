@@ -9,6 +9,7 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) {
+
         SimpleProduct product1 = new SimpleProduct("Апельсин", 115);        // создание продуктов
         DiscountedProduct product2 = new DiscountedProduct("Яблоко", 80, 15);
         SimpleProduct product3 = new SimpleProduct("Манго", 500);
@@ -82,7 +83,7 @@ public class App {
         searchEngine.addNewSearchable(article2);
         searchEngine.addNewSearchable(article3);
 
-        System.out.println(searchEngine.getSearchArray("VW"));
+        System.out.println(searchEngine.getSearchSet("VW"));
 
 
         try {
@@ -127,7 +128,7 @@ public class App {
 
         // Проверка методов класса SearchEngine
 
-        System.out.println(searchEngine.getSearchArray("VW"));
+        System.out.println(searchEngine.getSearchSet("VW"));
 
         try {
             System.out.println("searchEngine.getSearchTerm(\"V1\") = " + searchEngine.getSearchTerm("V1"));
@@ -158,7 +159,9 @@ public class App {
         searchEngine1.addNewSearchable(articleTest3);
         searchEngine1.addNewSearchable(articleTest4);
 
-        System.out.println("searchEngine1.getSearchArray() = \n" + searchEngine1.getSearchArray("BMW"));
+        System.out.println("searchEngine1.getSearchArray() = \n" + searchEngine1.getSearchSet("BMW"));
+
+
 
     }
 }

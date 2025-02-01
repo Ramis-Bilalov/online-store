@@ -9,15 +9,15 @@ public class ProductBasket {
 
     public static void addProduct(Product product) {
         String productName = product.getProductName();
-        List<Product> productlist = productsBasket.getOrDefault(productName, new ArrayList<>());
-        productlist.add(product);
-        productsBasket.put(productName, productlist);
+        List<Product> productsList = productsBasket.getOrDefault(productName, new ArrayList<>());
+        productsList.add(product);
+        productsBasket.put(productName, productsList);
     }
 
     public static List<Product> removeProductsByName(String name) {
         List<Product> deleteList = new LinkedList<>();
-        List<Product> productlist = productsBasket.getOrDefault(name, new ArrayList<>());
-        for (Product product : productlist) {
+        List<Product> productsList = productsBasket.getOrDefault(name, new ArrayList<>());
+        for (Product product : productsList) {
             if (product.getProductName().contains(name)) {
                 deleteList.add(product);
                 productsBasket.remove(name);
@@ -29,8 +29,8 @@ public class ProductBasket {
     public static int getBasketCost() {
         int sum = 0;
         for (Map.Entry<String, List<Product>> entry : productsBasket.entrySet()) {
-            List<Product> value = entry.getValue();
-            for (Product product : value) {
+            List<Product> valueList = entry.getValue();
+            for (Product product : valueList) {
                 if (product != null) {
                     sum = sum + product.getProductPrice();
                 }
@@ -42,12 +42,12 @@ public class ProductBasket {
     public static void printBasketContent() {
         int count = 0;
         int specialProductsCount = 0;
-        List<Product> newArray = new LinkedList<>();
+        List<Product> newList = new LinkedList<>();
         for (Map.Entry<String, List<Product>> entry : productsBasket.entrySet()) {
             List<Product> value = entry.getValue();
             for (Product product : value) {
                 if (product != null) {
-                    newArray.add(product);
+                    newList.add(product);
                     if (product.isSpecial()) {
                         specialProductsCount++;
                     }
@@ -55,7 +55,7 @@ public class ProductBasket {
                 }
             }
         }
-        System.out.println(newArray);
+        System.out.println(newList);
         if (count == 0) {
             System.out.println("В корзине пусто");
         }
@@ -64,8 +64,8 @@ public class ProductBasket {
     }
 
     public static boolean isProductOnBasket(String productName) {
-        List<Product> productlist = productsBasket.getOrDefault(productName, new ArrayList<>());
-        for (Product product : productlist) {
+        List<Product> productsList = productsBasket.getOrDefault(productName, new ArrayList<>());
+        for (Product product : productsList) {
             if (product.getProductName().contains(productName)) {
                 return true;
             }
